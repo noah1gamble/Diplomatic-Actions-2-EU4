@@ -1,0 +1,9 @@
+#Static Modifiers Written by JihadiJackass
+
+recently_claimed_great_claims = {
+	prestige = 1
+}
+
+had_great_claims_against_us = {
+	prestige = -0.05
+}

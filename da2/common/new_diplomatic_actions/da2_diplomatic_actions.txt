@@ -1,0 +1,81 @@
+# Diplomatic Actions Written by JihadiJackass
+
+great_claims = {
+    category = great_powers     
+    
+    alert_index = 3          
+    
+    require_acceptance = no
+    
+    is_visible = {
+		ROOT = {
+			is_great_power = yes
+		}
+    }
+	
+    is_allowed = {
+		ROOT = {
+			AND = {
+				is_great_power = yes					
+				prestige = 90
+				stability = 1
+				total_development = 200
+			}
+			NOT = {
+				is_subject = yes
+				has_country_modifier = recently_claimed_great_claims
+			}
+		}
+		FROM = {
+				AND = {
+					is_neighbor_of = ROOT	
+					border_distance = {
+						who = ROOT
+						distance = 0
+					}
+				}
+				OR = {
+					is_great_power = yes
+					total_development = 100	
+				}
+				NOT = {
+					is_vassal = yes
+					is_subject = yes
+					has_country_modifier = had_great_claims_against_us	
+			}
+		}
+	}
+	
+    on_accept = {
+		every_province = {
+			limit = {
+				owned_by = FROM
+					any_neighbor_province = {
+						owned_by = ROOT
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+				add_country_modifier = { 
+					name = recently_claimed_great_claims
+					duration = 3650 #10 years 
+					hidden = no
+				}
+				add_adm_power = -100
+				add_dip_power = -100
+				add_stability = -1
+				add_prestige = -10
+			FROM = {
+				add_country_modifier = { 
+					name = had_great_claims_against_us
+					duration = 36500 #100 years
+					desc = claims_against_desc
+					hidden = no
+					}
+				add_prestige = -5
+		}
+	}	
+
+	alert_tooltip = great_claims_tooltip
+		
+	}
